@@ -14,15 +14,18 @@ class Calorie_Elf_Finder:
             with open(self.filename, "r") as f:
                 return f.read()
 
-    def findMaxCalElf(self):
+    def findMaxTop3CalElf(self):
         f = self.file_reader()
         total_calories_of_all_elves = []
         for indv_elf in f.split("\n\n"):
             total_calories_of_elf= np.fromstring(indv_elf, dtype=np.int_, sep="\n").sum()
             total_calories_of_all_elves.append(total_calories_of_elf)
         total_calories_of_all_elves.sort()
-        return total_calories_of_all_elves[-1:]
+        return total_calories_of_all_elves[-3:]
 
 
 C = Calorie_Elf_Finder("inputfile.txt")
-print("Max total calories being carried by an elf: {0}".format(C.findMaxCalElf()))
+top3Max = C.findMaxTop3CalElf()
+sumTop3 = top3Max[0]+top3Max[1]+top3Max[2]
+print("Max total calories being carried by an elf: {0}".format(top3Max[-1]))
+print("Top 3 carrying most calroies: {}".format(sumTop3))
